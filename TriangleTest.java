@@ -2,15 +2,21 @@
 public class TriangleTest {
 
 	public static void main(String[] args) {
-		Triangle one = new Triangle(2,2,2);
-		Triangle two = new Triangle(1,2,3);
-		Triangle three = new Triangle(.50, .75, .25);
+		Triangle one = new Triangle(2, 2, 2);
+		Triangle two = new Triangle(2, 3, 4);
+		Triangle three = new Triangle(.50, .75, .50);
 		Triangle four = new Triangle(100, 200, 400);
+		Triangle five = new Triangle(0, 0, 0);
+		Triangle six = new Triangle(-1, 1, 2);
+		Triangle seven = new Triangle(2, 4, 2);
 		
-		System.out.println(one.testTriangle());
-		System.out.println(two.testTriangle());
-		System.out.println(three.testTriangle());
-		System.out.println(four.testTriangle());
+		System.out.println(one.testTriangle()); // should print "Equilateral"
+		System.out.println(two.testTriangle()); // should print "Scalene"
+		System.out.println(three.testTriangle()); // should print "Isosceles"
+		System.out.println(four.testTriangle()); // should print "Illegal"
+		System.out.println(five.testTriangle()); // should print "Illegal"
+		System.out.println(six.testTriangle()); // should print "Illegal"
+		System.out.println(seven.testTriangle()); // should print "Illegal"
 	}
 }
 
@@ -26,9 +32,12 @@ class Triangle {
 	}
 	
 	public String testTriangle() {
-		if (sideOne > sideTwo + sideThree || 
-				sideTwo > sideOne + sideThree || 
-				sideThree > sideOne + sideTwo) {
+		if (sideOne <= 0 || sideTwo <= 0 || sideThree <= 0) {
+			return "Illegal";
+		}
+		else if (sideOne >= sideTwo + sideThree || 
+				sideTwo >= sideOne + sideThree || 
+				sideThree >= sideOne + sideTwo) {
 			return "Illegal";
 		}
 		else if (sideOne == sideTwo && sideTwo == sideThree) {
