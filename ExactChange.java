@@ -1,5 +1,5 @@
 public class ExactChange {
-	public static boolean sufficientChange = true;
+	public static boolean sufficientChange = true; // changes to false when cash in drawer (cid) doesn't have enough change
 
 	public static void main(String[] args) {
 		double price = 3.26;
