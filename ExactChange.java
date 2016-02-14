@@ -81,18 +81,18 @@ public class ExactChange {
 	
 	// prints the change returned from highest to lowest
 	public static void printArray(double price, double cash, double[][] finalChange, double[][] cid) {
-		if (drawerClosed(finalChange, cid) && enoughChange(price, cash, finalChange)) {
+		if (!enoughChange(price, cash, finalChange)) {
+			System.out.println("Insufficient Funds");
+		}
+		else if (drawerClosed(finalChange, cid)) {
 			System.out.println("Closed");
 		}
-		else if (enoughChange(price, cash, finalChange)) {
+		else {
 			for (int i = finalChange.length - 1; i >= 0; i--) {
 				if (finalChange[i][1] > 0) {
 					System.out.println("[" + denomition(finalChange[i][0]) + ", " + finalChange[i][1] + "]");
 				}
 			}
-		}
-		else {
-			System.out.println("Insufficient Funds");
 		}
 	}
 	
