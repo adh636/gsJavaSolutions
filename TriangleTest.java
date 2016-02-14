@@ -37,6 +37,7 @@ class Triangle {
 		}
 		
 		// testing the Triangle Equality Theorem
+		// (no side can be larger than the sum of the other 2 sides)
 		else if (sideOne >= sideTwo + sideThree || 
 				sideTwo >= sideOne + sideThree || 
 				sideThree >= sideOne + sideTwo) {
