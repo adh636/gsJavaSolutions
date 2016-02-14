@@ -35,7 +35,7 @@ public class ExactChange {
 	
 	// prints the change returned from highest to lowest
 	public static void printArray(double price, double cash, double[][] finalChange, double[][] cid) {
-		if (drawerClosed(finalChange, cid)) {
+		if (drawerClosed(finalChange, cid) && enoughChange(price, cash, finalChange)) {
 			System.out.println("Closed");
 		}
 		else if (enoughChange(price, cash, finalChange)) {
