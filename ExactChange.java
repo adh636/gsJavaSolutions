@@ -1,14 +1,13 @@
 public class ExactChange {
-	public static boolean sufficientChange = true; // changes to false when cash in drawer (cid) doesn't have enough change
-
+	
 	public static void main(String[] args) {
-		double price = 3.26;
-		double cash = 200.00;
-		double[][] cid = {{.01, 1.01}, {.05, 2.05}, {.10, 3.10}, 
-				{.25, 4.25}, {1.00, 90.00}, {5.00, 55.00}, {10.00, 20.00}, 
-				{20.00, 60.00}, {100.00, 100.00}};
+		double price = .01;
+        double cash = .02;
+        double[][] cid = {{.01, 0.10}, {.05, 0.0}, {.10, 0.0},
+                {.25, 0.0}, {1.200, 0.0}, {5.00, 0.00}, {10.00, 0.0},
+                {20.00, 0.0}, {100.00, 0.00}};
 		double[][] change = calculateChange(price, cash, cid);
-		printArray(change, cid);
+		printArray(price, cash, change, cid);
 	}
 	
 	// returns a 2d array of change due
@@ -19,7 +18,7 @@ public class ExactChange {
 		int counter = 0;
 		while (amountBack >= 0.01 && counter < cid.length) {
 			for (int i = cid.length - 1; i >= 0; i--) {
-				if (cid[i][0] < amountBack) {
+				if (cid[i][0] <= amountBack) {
 					change[i][0] = cid[i][0];
 					change[i][1] = Math.min(cid[i][1], ((int) (amountBack/cid[i][0])) * cid[i][0]);
 					amountBack -= change[i][1];
@@ -31,19 +30,15 @@ public class ExactChange {
 				counter++;
 			}
 		}
-		
-		if (amountBack >= .01) {
-			sufficientChange = false;
-		}
 		return change;
 	}
 	
 	// prints the change returned from highest to lowest
-	public static void printArray(double[][] finalChange, double[][] cid) {
+	public static void printArray(double price, double cash, double[][] finalChange, double[][] cid) {
 		if (drawerClosed(finalChange, cid)) {
 			System.out.println("Closed");
 		}
-		else if (sufficientChange) {
+		else if (enoughChange(price, cash, finalChange)) {
 			for (int i = finalChange.length - 1; i >= 0; i--) {
 				if (finalChange[i][1] > 0) {
 					System.out.println("[" + denomition(finalChange[i][0]) + ", " + finalChange[i][1] + "]");
@@ -61,6 +56,18 @@ public class ExactChange {
 			if (finalChange[i][1] != cid[i][1]) {
 				return false;
 			}
+		}
+		return true;
+	}
+	
+	// returns true if there is enough change
+	public static boolean enoughChange(double price, double cash, double[][] finalChange) {
+		double totalChange = 0;
+		for (double[] amount: finalChange) {
+			totalChange += amount[1];
+		}
+		if (totalChange < (cash - price)) {
+			return false;
 		}
 		return true;
 	}
