@@ -1,4 +1,3 @@
-
 public class TriangleTest {
 
 	public static void main(String[] args) {
@@ -32,21 +31,30 @@ class Triangle {
 	}
 	
 	public String testTriangle() {
+		// testing if any side is <= 0
 		if (sideOne <= 0 || sideTwo <= 0 || sideThree <= 0) {
 			return "Illegal";
 		}
+		
+		// testing the Triangle Equality Theorem
 		else if (sideOne >= sideTwo + sideThree || 
 				sideTwo >= sideOne + sideThree || 
 				sideThree >= sideOne + sideTwo) {
 			return "Illegal";
 		}
+		
+		// testing if all sides are equal
 		else if (sideOne == sideTwo && sideTwo == sideThree) {
 			return "Equilateral";
 		}
+		
+		// testing if only 2 sides are equal
 		else if (sideOne == sideTwo || sideOne == sideThree || 
 				sideTwo == sideThree) {
 			return "Isosceles";
 		}
+		
+		// if all other tests fail the triangle must be scalene
 		else {
 			return "Scalene";
 		}
