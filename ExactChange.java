@@ -58,35 +58,39 @@ public class ExactChange {
 	
 	// returns a 2d array of change due
 	public static double[][] calculateChange(double price, double cash, double[][] cid) {
-		double[][] change = new double[cid.length][2];
-		double amountBack = cash - price;
+		double[][] change = new double[cid.length][2]; // 2d double array for storing change
+		double amountBack = cash - price; // stores change left to return 
 		
-		int counter = 0;
+		int counter = 0; // counter to end while loop if cid has insufficient change
 		while (amountBack >= 0.01 && counter < cid.length) {
-			for (int i = cid.length - 1; i >= 0; i--) {
+			for (int i = cid.length - 1; i >= 0; i--) { // start with largest denomination and work backwards
 				if (cid[i][0] <= amountBack) {
-					change[i][0] = cid[i][0];
-					change[i][1] = Math.min(cid[i][1], ((int) (amountBack/cid[i][0])) * cid[i][0]);
-					amountBack -= change[i][1];
+					change[i][0] = cid[i][0]; // adds denomination to the new change array
+					change[i][1] = Math.min(cid[i][1], ((int) (amountBack/cid[i][0])) * cid[i][0]); // adds most possible from this denomination
+					amountBack -= change[i][1]; // subtracts change added to change array from amountBack
 				}
-				else {
+				// adds denomination and 0.00 value to change array
+				else { 
 					change[i][0] = cid[i][0];
 					change[i][1] = 0.00;
 				}
 				counter++;
 			}
 		}
-		return change;
+		return change; // returns 2d change array
 	}
 	
-	// prints the change returned from highest to lowest
+	// prints the result
 	public static void printArray(double price, double cash, double[][] finalChange, double[][] cid) {
+		// checks if enough change in drawer
 		if (!enoughChange(price, cash, finalChange)) {
 			System.out.println("Insufficient Funds");
 		}
+		// checks if finalChange equal to cid
 		else if (drawerClosed(finalChange, cid)) {
 			System.out.println("Closed");
 		}
+		// prints change returned from highest to lowest
 		else {
 			for (int i = finalChange.length - 1; i >= 0; i--) {
 				if (finalChange[i][1] > 0) {
@@ -110,8 +114,9 @@ public class ExactChange {
 	public static boolean enoughChange(double price, double cash, double[][] finalChange) {
 		double totalChange = 0;
 		for (double[] amount: finalChange) {
-			totalChange += amount[1];
+			totalChange += amount[1]; // adds the amount for each denomination to totalChange
 		}
+		// checks to make sure totalChange isn't less than was needed
 		if (totalChange < (cash - price)) {
 			return false;
 		}
