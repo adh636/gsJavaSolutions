@@ -1,11 +1,12 @@
 public class ExactChange {
 	
 	public static void main(String[] args) {
-		double price = .01;
-        double cash = .02;
-        double[][] cid = {{.01, 0.10}, {.05, 0.0}, {.10, 0.0},
-                {.25, 0.0}, {1.00, 0.0}, {5.00, 0.00}, {10.00, 0.0},
-                {20.00, 0.0}, {100.00, 0.00}};
+		
+		double price = 3.26;
+        double cash = 100.00;
+        double[][] cid = {{.01, 1.01}, {.05, 2.05}, {.10, 3.10},
+                {.25, 4.25}, {1.00, 90.00}, {5.00, 55.00}, {10.00, 20.00},
+                {20.00, 60.00}, {100.00, 100.00}};
 		double[][] change = calculateChange(price, cash, cid);
 		printArray(price, cash, change, cid);
 		System.out.println();
@@ -59,7 +60,7 @@ public class ExactChange {
 	// returns a 2d array of change due
 	public static double[][] calculateChange(double price, double cash, double[][] cid) {
 		double[][] change = new double[cid.length][2]; // 2d double array for storing change
-		double amountBack = cash - price; // stores change left to return 
+		double amountBack = (double)Math.round((cash - price) * 100) / 100; // stores change left to return 
 		
 		int counter = 0; // counter to end while loop if cid has insufficient change
 		while (amountBack >= 0.01 && counter < cid.length) {
@@ -67,7 +68,7 @@ public class ExactChange {
 				if (cid[i][0] <= amountBack) {
 					change[i][0] = cid[i][0]; // adds denomination to the new change array
 					change[i][1] = Math.min(cid[i][1], ((int) (amountBack/cid[i][0])) * cid[i][0]); // adds most possible from this denomination
-					amountBack -= change[i][1]; // subtracts change added to change array from amountBack
+					amountBack = (double)Math.round((amountBack - change[i][1]) * 100) / 100; // subtracts change added to change array from amountBack
 				}
 				// adds denomination and 0.00 value to change array
 				else { 
@@ -117,7 +118,7 @@ public class ExactChange {
 			totalChange += amount[1]; // adds the amount for each denomination to totalChange
 		}
 		// checks to make sure totalChange isn't less than was needed
-		if (totalChange < (cash - price)) {
+		if (totalChange < (double)Math.round((cash - price) * 100) / 100) {
 			return false;
 		}
 		return true;
