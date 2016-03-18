@@ -31,33 +31,67 @@ class Triangle {
 	}
 	
 	public String testTriangle() {
-		// testing if any side is <= 0
-		if (sideOne <= 0 || sideTwo <= 0 || sideThree <= 0) {
+		
+		if (!isTriangle()) {
 			return "Illegal";
 		}
 		
-		// testing the Triangle Equality Theorem
-		// (no side can be larger than the sum of the other 2 sides)
-		else if (sideOne >= sideTwo + sideThree || 
-				sideTwo >= sideOne + sideThree || 
-				sideThree >= sideOne + sideTwo) {
-			return "Illegal";
-		}
-		
-		// testing if all sides are equal
-		else if (sideOne == sideTwo && sideTwo == sideThree) {
+		else if (isEquilateral()) {
 			return "Equilateral";
 		}
 		
-		// testing if only 2 sides are equal
-		else if (sideOne == sideTwo || sideOne == sideThree || 
-				sideTwo == sideThree) {
+		else if (isIsosceles()) {
 			return "Isosceles";
 		}
 		
-		// if all other tests fail the triangle must be scalene
+		
 		else {
 			return "Scalene";
 		}
+	}
+	
+	public boolean isTriangle() {	
+		// testing if any side is <= 0
+		if (sideOne <= 0 || sideTwo <= 0 || sideThree <= 0) {
+			return false;
+		}		
+		// testing the Triangle Equality Theorem 
+		else if (sideOne >= sideTwo + sideThree || 
+				sideTwo >= sideOne + sideThree || 
+				sideThree >= sideOne + sideTwo) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isEquilateral() {
+		if (isTriangle()) {
+			// testing if all sides are equal
+			if (sideOne == sideTwo && sideTwo == sideThree) {
+				return true;
+			}
+		}	
+		return false;
+	}
+	
+	public boolean isIsosceles() {
+		if (isTriangle()) {
+			// testing if only 2 sides are equal
+			if (sideOne == sideTwo || sideOne == sideThree || 
+					sideTwo == sideThree) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isScalene() {
+		if (isTriangle()) {
+			// testing if all sides are different lengths
+			if (sideOne != sideTwo && sideTwo != sideThree) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
