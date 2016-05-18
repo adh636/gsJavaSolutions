@@ -14,40 +14,6 @@ public class ExactChangeTester {
 		assertNotNull(c);
 	}
 	
-	/*
-	@Test
-	public void canGetChangeInRegister() {
-		assertEquals(register.getChangeInRegister(), changeForRegister);
-	}
-	*/
-	
-	/*
-	@Test
-	public void canReturnChangeInRegister() {
-		double oneHundred = 100;
-		double quarter = .25;
-		double penny = .01;
-		assertEquals(register.returnChangeArray(0, oneHundred), new double[][]{{.01, 0},{.05, 0},
-			{.1, 0},{.25, 0},{1.0, 0},{5.0, 0},{10.0, 0},{20.0, 0},{100.0, 100.0}});
-		assertEquals(register.returnChangeArray(0, quarter), new double[][]{{.01, 0},{.05, 0},
-			{.1, 0},{.25, .25},{1.0, 0},{5.0, 0},{10.0, 0},{20.0, 0},{100.0, 0}});
-		assertEquals(register.returnChangeArray(0, penny), new double[][]{{.01, .01},{.05, 0},
-			{.1, 0},{.25, 0},{1.0, 0},{5.0, 0},{10.0, 0},{20.0, 0},{100.0, 0}});
-	}
-	*/
-	
-	/*
-	@Test
-	public void canGetStringRepresentationOfDenominations() {
-		double oneHundred = 100.0;
-		double quarter = .25;
-		double penny = .01;
-		assertEquals(register.stringDenomination(oneHundred), "ONE HUNDRED");
-		assertEquals(register.stringDenomination(quarter), "QUARTER");
-		assertEquals(register.stringDenomination(penny), "PENNY");
-	}
-	*/
-	
 	@Test
 	public void canReturnStringRepresentationOfChangeDue() {
 		assertEquals(register.checkCashRegister(100, 200, changeForRegister), "[[ONE HUNDRED, 100.0]]");
