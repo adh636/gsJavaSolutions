@@ -23,18 +23,19 @@ public class CashRegister {
 			return "Closed";
 		}
 		
-		for (int i = arrayOfChangeToReturn.length - 1; i >= 0; i--) {
-			if (arrayOfChangeToReturn[i][1] > 0) {
-				stringOfChangeToReturn += changeArrayToString(arrayOfChangeToReturn[i]);
-			}
-		}
-		return stringOfChangeToReturn + "]";
+		return stringOfChangeToReturn + changeArrayToString(arrayOfChangeToReturn) + "]";
 	}
 	
-	private String changeArrayToString(double[] denominationAndValue) {
-		String denominationToAdd = stringDenomination(denominationAndValue[0]);
-		double amountOfDenominationToAdd = denominationAndValue[1];
-		return "[" + denominationToAdd + ", " + amountOfDenominationToAdd + "]";
+	private String changeArrayToString(double[][] arrayOfChangeToReturn) {
+		String stringOfChangeToReturn = "";
+		for (int i = arrayOfChangeToReturn.length - 1; i >= 0; i--) {
+			if (arrayOfChangeToReturn[i][1] > 0) {
+				String denominationToAdd = stringDenomination(arrayOfChangeToReturn[i][0]);
+				double amountOfDenominationToAdd = arrayOfChangeToReturn[i][1];
+				stringOfChangeToReturn += "[" + denominationToAdd + ", " + amountOfDenominationToAdd + "]";
+			}
+		}
+		return stringOfChangeToReturn;
 	}
 	
 	
